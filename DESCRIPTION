@@ -3,6 +3,7 @@ Type: Package
 Title: Perform USAID/Nigeria's MER Data Quality Checks
 Version: 0.1.0
 Author: person("Aaron", "Chafetz", email = "achafetz@usaid.gov", role = c("aut", "cre"))
+Maintainer: Aaron Chafetz <achafetz@usaid.gov>
 Description: More about what it does (maybe more than one line)
 Imports: dplyr, tidyr, readr, magrittr, stringr, purrr, jsonlite, httr
 License: MIT
