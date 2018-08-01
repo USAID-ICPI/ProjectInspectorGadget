@@ -14,19 +14,20 @@ pull_analytics <- function(url, baseurl = "https://pisa.datim.org/", extract = "
     
   #pull json
     json <- URLencode(full_url) %>%
-      httr::GET(timeout(60)) %>% 
+      httr::GET(httr::timeout(60)) %>% 
       httr::content("text") %>% 
       jsonlite::fromJSON(flatten=TRUE) 
   
   #extract key elements
-    df <- purrr::pluck(extract)
+    df <- purrr::pluck(json, extract) %>% 
+      tibble::as_tibble()
     
   if(extract == "rows"){
+    #add column names extracted from json
+    names(df) <- json$headers$colum  
     #extract tabular data from json and convert values from string to numeric
     df <- dplyr::mutate(df, Value = as.numeric(Value))
-    #add column names extracted from json
-    names(df) <- json$headers$column
-  }
+    }
   
-  return(df)
+   return(df)
 }
