@@ -2,11 +2,12 @@
 #'
 #' @param url api url, after base url
 #' @param baseurl default = "https://pisa.datim.org/"
+#' @param extract what element of the json file do you want to use, rows, dataElement
 #'
 #' @export
 #' @importFrom dplyr %>%
 #'
-pull_analytics <- function(url, baseurl = "https://pisa.datim.org/"){
+pull_analytics <- function(url, baseurl = "https://pisa.datim.org/", extract = "rows"){
   
   #concatenate url
     full_url <- paste0(baseurl, url)
@@ -17,11 +18,15 @@ pull_analytics <- function(url, baseurl = "https://pisa.datim.org/"){
       httr::content("text") %>% 
       jsonlite::fromJSON(flatten=TRUE) 
   
-  #extract tabular data from json and convert values from string to numeric
-  df <- tibble::as.tibble(json$rows) %>% 
-    dplyr::mutate(Value = as.numeric(Value))
-  
-  names(df) <- json$headers$column
+  #extract key elements
+    df <- purrr::pluck(extract)
+    
+  if(extract == "rows"){
+    #extract tabular data from json and convert values from string to numeric
+    df <- dplyr::mutate(df, Value = as.numeric(Value))
+    #add column names extracted from json
+    names(df) <- json$headers$column
+  }
   
   return(df)
 }
