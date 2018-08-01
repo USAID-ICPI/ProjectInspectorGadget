@@ -26,7 +26,7 @@ pull_analytics <- function(url, baseurl = "https://pisa.datim.org/", extract = "
     #add column names extracted from json
     names(df) <- json$headers$column
     df <- df %>% 
-      dplyr::rename(dataelement_full = Data,
+      dplyr::rename(dataelement = Data,
                     org_unit = `Organisation unit`,
                     value = Value)
     #extract tabular data from json and convert values from string to numeric
