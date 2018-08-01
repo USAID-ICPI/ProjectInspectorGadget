@@ -46,5 +46,5 @@
     api_hts <- dismember(api_hts) %>% 
       dplyr::select(org_unit, dataelement, indicator, disaggregate, numeratordenom, indicatortype, resulttarget, value)
     
-  # Check #2
+  # Check #1
    
