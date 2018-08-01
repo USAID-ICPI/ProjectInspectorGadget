@@ -1,21 +1,26 @@
-library(tidyverse)
-library(jsonlite)
-library(httr)
-library(datimvalidation)
+##   PROJECT INSPECTOR GADGET
+##   A.Chafetz
+##   Purpose: DATIM API pulls to conduct Nigeria's MER data validation
+##   Date: 2018.08.01
+##   Updated:
 
-loadSecrets()
 
-baseurl <- "https://pisa.datim.org/"
-url <- paste0(baseurl, "api/26/analytics.json?dimension=CKTkg8dLlr7:OxLSARiuCa8;KFZG3Lc0XgW;CeWDIASZw2r;YvO0x3N8iPk;qqV9vdPM2CB;QtnU6PoZwTj;mmef9WanhN1;jSX8elpqcD2;MZYo6lCaIhr;fTuReSq9mrJ;N3ZPt01yI74;UQJZLPV5BcW;Q8GqLayzQHh;sk2aTYKnZNz;y4f2Qs5jnv8;yQ9lXE1Sdm0&dimension=LxhLO68FcXm:f5IPTM7mieH&dimension=ou:LEVEL-3;PqlFzhuPcF1&filter=pe:2018Q1&displayProperty=SHORTNAME&skipMeta=false&hierarchyMeta=true")
+# Dependencies ------------------------------------------------------------
 
-api <-
-  URLencode(url) %>%
-  GET(.,timeout(60)) %>% 
-  content(., "text") %>% 
-  fromJSON(.,flatten=TRUE)
+  library(devtools)
+  library(magrittr)
 
-names(api)
 
-test <- as.tibble(api$rows)
+# Load user information ---------------------------------------------------
 
-names(test) <- api$headers$column
+  # baseurl: https://pisa.datim.org/
+  datimvalidation::loadSecrets()
+
+
+# HTS - Validation --------------------------------------------------------
+
+  #HTS pivot table created in DATIM
+    pivoturl <- "api/26/analytics.json?dimension=dx:K6f6jR0NOcZ;FJSew4Ks0j3&dimension=ou:LEVEL-4;PqlFzhuPcF1&filter=pe:2018Q1&displayProperty=NAME&outputIdScheme=NAME"
+  
+  #HTS API pull
+    api_hts <- pull_analytics(pivoturl)
