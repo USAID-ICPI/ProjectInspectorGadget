@@ -47,4 +47,10 @@
       dplyr::select(org_unit, dataelement, indicator, disaggregate, numeratordenom, indicatortype, resulttarget, value)
     
   # Check #1
-   
+   check1 <- api_hts %>% 
+     dplyr::filter(disaggregate != "Total Numerator") %>% 
+     dplyr::mutate(type = dplyr::case_when(stringr::str_detect(disaggregate, "Age Aggregated") ~ "Aggregated",
+                                           stringr::str_detect(disaggregate, "Age")            ~ "Fine")) %>% 
+     tidyr::spread()
+                     
+                                    
