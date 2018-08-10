@@ -13,7 +13,7 @@ pull_ind <- function(ind){
   #use URL to pull relevant indicator UIDS and combine in list
     lst_ind_uids <- 
       pull_analytics(deurl, extract = "dataElements") %>% 
-      dplyr::filter(stringr::str_detect(displayName, paste0(ind," \\(N, (DSD|TA)")), !stringr::str_detect(displayName, "(T_PSNU|NARRATIVE)")) %>% 
+      dplyr::filter(stringr::str_detect(displayName, paste0(ind," \\(N, (DSD|TA)")), !stringr::str_detect(displayName, "(NARRATIVE|NGI|MOH|T_PSNU|NA,|NA\\))")) %>% 
       dplyr::pull(id) %>% 
       paste0(collapse = ";")
   
