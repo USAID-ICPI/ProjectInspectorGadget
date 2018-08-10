@@ -2,18 +2,24 @@
 #'
 #' @param ind indicator to pull down 
 #' @param pd period to pull, eg "2018Q1" or multiple "2017Q4;2018Q1"
+#' @param catopcomb like statement to match categoryoptioncombo, eg "Life-long%20ART,%20New"
 #'
 #' @export
 #' @importFrom dplyr %>%
 
-pull_ind <- function(ind, pd = "2018Q1"){
+pull_ind <- function(ind, pd = "2018Q1", catopcomb = NULL){
   
   #add indicator to dataElements url to identify full list of uids to pull
+  if(is.null(catopcomb)){
     deurl <- paste0("api/dataElements?paging=false&filter=name:like:", ind)
-    
+    ext <- "dataElements"
+  } else {
+    deurl <- paste0("api/dataElementOperands?paging=false&filter=name:like:", catopcomb)
+    ext <- "dataElementOperands"
+  }
   #use URL to pull relevant indicator UIDS and combine in list
     lst_ind_uids <- 
-      pull_analytics(deurl, extract = "dataElements") %>% 
+      pull_analytics(deurl, extract = ext) %>% 
       dplyr::filter(stringr::str_detect(displayName, paste0(ind," \\(N, (DSD|TA)")), !stringr::str_detect(displayName, "(NARRATIVE|NGI|MOH|T_PSNU|NA,|NA\\))")) %>% 
       dplyr::pull(id) %>% 
       paste0(collapse = ";")

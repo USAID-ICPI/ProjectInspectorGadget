@@ -4,12 +4,14 @@
 \alias{pull_ind}
 \title{Pull indicator data from DATIM}
 \usage{
-pull_ind(ind, pd = "2018Q1")
+pull_ind(ind, pd = "2018Q1", catopcomb = NULL)
 }
 \arguments{
 \item{ind}{indicator to pull down}
 
 \item{pd}{period to pull, eg "2018Q1" or multiple "2017Q4;2018Q1"}
+
+\item{catopcomb}{like statement to match categoryoptioncombo, eg "Life-long%20ART,%20New"}
 }
 \description{
 Pull indicator data from DATIM
