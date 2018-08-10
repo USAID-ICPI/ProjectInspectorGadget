@@ -1,7 +1,7 @@
 #' Pull indicator data from DATIM
 #'
 #' @param ind indicator to pull down 
-#' @param pd period to pull, eg "THIS_FINANCIAL_YEAR" for targets or "THIS_QUARTER"/"LAST_QUARTER" for results
+#' @param pd period to pull, eg "2018Q1" or multiple "2017Q4;2018Q1"
 #'
 #' @export
 #' @importFrom dplyr %>%
@@ -19,7 +19,7 @@ pull_ind <- function(ind, pd = "2018Q1"){
       paste0(collapse = ";")
   
   #use list to create pivot url
-    pivoturl <- paste0("api/26/analytics.json?dimension=dx:", lst_ind_uids,"&dimension=ou:LEVEL-4;PqlFzhuPcF1&filter=pe:", pd, "&displayProperty=NAME&outputIdScheme=NAME")
+    pivoturl <- paste0("api/26/analytics.json?dimension=dx:", lst_ind_uids,"&dimension=ou:LEVEL-4;PqlFzhuPcF1&dimension=pe:", pd, "&displayProperty=NAME&outputIdScheme=NAME")
   
   #extract data from DATIM using url
     api_pull <- pull_analytics(pivoturl)

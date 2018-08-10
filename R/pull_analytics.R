@@ -26,14 +26,14 @@ pull_analytics <- function(url, baseurl = "https://pisa.datim.org/", extract = "
     #add column names extracted from json
     names(df) <- json$headers$column
     df <- df %>% 
-      dplyr::rename(dataelement = Data,
-                    org_unit = `Organisation unit`,
-                    value = Value)
+      dplyr::rename_all(~ tolower(.)) %>% 
+      dplyr::rename(dataelement = data,
+                    org_unit = `organisation unit`)
     #clean up 
     df <- df %>% 
-      dplyr::mutate(value = as.numeric(value),                   #convert values from string to numeric
-                    period = json$metaData$dimensions$pe) %>%    #add period in
-      dplyr::select(org_unit, dataelement, period, value)        #reorder
+      dplyr::mutate(value = as.numeric(value)) %>%                  #convert values from string to numeric
+                   #period = json$metaData$dimensions$pe) %>%       #add period in, 
+      dplyr::select(org_unit, dataelement, period, value)           #reorder
     }
   
    return(df)
