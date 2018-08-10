@@ -13,7 +13,8 @@ dismember <- function(df) {
                   indicator = stringr::str_extract(dataelement, "^.*\\(") %>% stringr::str_replace_all("\\(|\\s", ""),
                   numeratordenom = stringr::str_extract(dataelement, "\\((N|D),") %>% stringr::str_replace_all("\\(|,", ""),
                   indicatortype = stringr::str_extract(dataelement, "DSD|TA"),
-                  resulttarget = ifelse(stringr::str_detect(dataelement, "TARGET"), "TARGET", "RESULT"))
+                  resulttarget = ifelse(stringr::str_detect(dataelement, "TARGET"), "TARGET", "RESULT")) %>% 
+    dplyr::select(org_unit, dataelement, indicator, disaggregate, numeratordenom, indicatortype, resulttarget, value)
 }
   # dplyr::mutate(
   #   modality = stringr::str_replace(dataelement,"/", "!") %>% stringr::str_extract("^.*!") %>%  stringr::str_replace("!", ""),
