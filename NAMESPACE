@@ -2,4 +2,5 @@
 
 export(dismember)
 export(pull_analytics)
+export(pull_ind)
 importFrom(dplyr,"%>%")
