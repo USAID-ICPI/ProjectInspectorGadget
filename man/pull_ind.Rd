@@ -4,10 +4,12 @@
 \alias{pull_ind}
 \title{Pull indicator data from DATIM}
 \usage{
-pull_ind(ind)
+pull_ind(ind, pd = "2018Q1")
 }
 \arguments{
 \item{ind}{indicator to pull down}
+
+\item{pd}{period to pull, eg "THIS_FINANCIAL_YEAR" for targets or "THIS_QUARTER"/"LAST_QUARTER" for results}
 }
 \description{
 Pull indicator data from DATIM

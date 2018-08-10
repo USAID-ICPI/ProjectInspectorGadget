@@ -31,6 +31,8 @@ pull_analytics <- function(url, baseurl = "https://pisa.datim.org/", extract = "
                     value = Value)
     #extract tabular data from json and convert values from string to numeric
     df <- dplyr::mutate(df, value = as.numeric(value))
+    #add period
+    df <- dplyr::mutate(df, period = json$metaData$dimensions$pe)
     }
   
    return(df)
