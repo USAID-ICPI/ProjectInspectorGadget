@@ -29,10 +29,11 @@ pull_analytics <- function(url, baseurl = "https://pisa.datim.org/", extract = "
       dplyr::rename(dataelement = Data,
                     org_unit = `Organisation unit`,
                     value = Value)
-    #extract tabular data from json and convert values from string to numeric
-    df <- dplyr::mutate(df, value = as.numeric(value))
-    #add period
-    df <- dplyr::mutate(df, period = json$metaData$dimensions$pe)
+    #clean up 
+    df <- df %>% 
+      dplyr::mutate(value = as.numeric(value),                   #convert values from string to numeric
+                    period = json$metaData$dimensions$pe) %>%    #add period in
+      dplyr::select(org_unit, dataelement, period, value)        #reorder
     }
   
    return(df)
