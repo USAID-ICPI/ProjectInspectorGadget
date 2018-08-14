@@ -4,4 +4,4 @@
 
 Recreating Nigeria's Data Quality Checks in R
 
-![image](https://vignette.wikia.nocookie.net/inspectorgadget/images/5/50/Wiki-background/revision/latest?cb=20171214175230)
+![image](https://user-images.githubusercontent.com/8933069/44113355-cb7ea0d8-9fd5-11e8-9bcd-af4ceb8e9011.png)
